@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_animated_auth_ui/shapes/logo_painter.dart';
 import 'package:flutter_custom_animated_auth_ui/shapes/wave_clipper.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //color: Colors.grey,
               AnimatedBuilder(
@@ -52,6 +54,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         gradient: LinearGradient(
                           colors: [Colors.deepPurple, Colors.blue],
                         ),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 50),
+                            width: 100,
+                            height: 100,
+                            //color: Colors.grey,
+                            child: CustomPaint(painter: LogoPainter()),
+                          ),
+                        ],
                       ),
                     ),
                   );
