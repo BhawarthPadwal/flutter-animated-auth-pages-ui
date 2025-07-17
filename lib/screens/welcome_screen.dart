@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_animated_auth_ui/shapes/wave_clipper.dart';
-import 'package:flutter_custom_animated_auth_ui/shapes/wave_painter.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -9,7 +8,27 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat();
+    _animation = Tween<double>(begin: 1.0, end: -1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -21,17 +40,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Column(
             children: [
               //color: Colors.grey,
-              ClipPath(
-                clipper: WaveClipper(),
-                child: Container(
-                  width: width,
-                  height: height * 0.35,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.deepPurple, Colors.blue],
+              AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) {
+                  return ClipPath(
+                    clipper: WaveClipper(_animation.value),
+                    child: Container(
+                      width: width,
+                      height: height * 0.35,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.deepPurple, Colors.blue],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),

@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class WaveClipper extends CustomClipper<Path> {
+  final double waveShift;
+
+  WaveClipper(this.waveShift);
+
   @override
   Path getClip(Size size) {
-    Path path = Path();
+    final path = Path();
+    final double waveHeight = 20;
+    final double waveLength = size.width;
+
     path.lineTo(0, size.height * 0.85);
 
-    path.cubicTo(
-      size.width * 0.3,
-      size.height * 0.58,
-      size.width / 2,
-      size.height + (size.height * 0.28),
-      size.width,
-      size.height * 0.85,
-    );
+    for (double i = 0; i <= waveLength; i++) {
+      double dx = i;
+      double dy = size.height * 0.85 +
+          math.sin((i / waveLength * 2 * math.pi) + waveShift * math.pi) *
+              waveHeight;
 
-    // Connect to bottom-right, bottom-left and close
-    path.lineTo(size.width, 0); // Go to top-right
-    path.lineTo(0, 0); // Go back to top-left
+      path.lineTo(dx, dy);
+    }
+
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
     path.close();
 
     return path;
   }
 
   @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(covariant WaveClipper oldClipper) =>
+      oldClipper.waveShift != waveShift;
 }
