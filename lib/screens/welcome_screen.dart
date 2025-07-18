@@ -52,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       height: height * 0.35,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.deepPurple, Colors.blue],
+                          colors: [Colors.blue.shade300, Colors.blue.shade100],
                         ),
                       ),
                       child: Column(
@@ -63,6 +63,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             height: 100,
                             //color: Colors.grey,
                             child: CustomPaint(painter: LogoPainter()),
+                          ),
+                          Text(
+                            'MOFINOW',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ],
                       ),
