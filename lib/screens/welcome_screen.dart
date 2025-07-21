@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_custom_animated_auth_ui/screens/login_screen.dart';
+import 'package:flutter_custom_animated_auth_ui/screens/otp_screen.dart';
 import 'package:flutter_custom_animated_auth_ui/shapes/logo_painter.dart';
 import 'package:flutter_custom_animated_auth_ui/shapes/wave_clipper.dart';
 
@@ -127,25 +128,33 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(1000)),
-                  border: Border.all(color: Colors.blue.shade300),
-                  gradient: LinearGradient(
-                    colors: [Colors.blue.shade300, Colors.blue.shade100],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => OtpScreen()),
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(1000)),
+                    border: Border.all(color: Colors.blue.shade300),
+                    gradient: LinearGradient(
+                      colors: [Colors.blue.shade300, Colors.blue.shade100],
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Center(
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Center(
+                      child: Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
