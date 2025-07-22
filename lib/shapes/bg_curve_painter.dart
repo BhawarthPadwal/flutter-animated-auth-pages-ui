@@ -30,9 +30,6 @@
 //   @override
 //   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 // }
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class BgCurvePainter extends CustomPainter {
