@@ -31,19 +31,6 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
   final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
   late String otp = _controllers.map((e) => e.text).join();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = AnimationController(
-  //     vsync: this,
-  //     duration: const Duration(seconds: 2),
-  //   )..repeat(reverse: true);
-  //   _animation = Tween<double>(
-  //     begin: 0,
-  //     end: 1.0,
-  //   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -119,11 +106,48 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  // Widget buildOtpTextField(int index, double width) {
+  //   return Container(
+  //     height: width * 0.14,
+  //     width: width * 0.14,
+  //     margin: EdgeInsets.symmetric(horizontal: 8),
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey.shade100,
+  //       borderRadius: BorderRadius.circular(12),
+  //     ),
+  //     child: TextField(
+  //       controller: _controllers[index],
+  //       focusNode: _focusNodes[index],
+  //       style: TextStyle(
+  //         color: Colors.black,
+  //         fontWeight: FontWeight.w600,
+  //         fontSize: 24,
+  //       ),
+  //       textAlign: TextAlign.center,
+  //       keyboardType: TextInputType.number,
+  //       maxLength: 1,
+  //       cursorHeight: 25,
+  //       decoration: InputDecoration(counterText: "", border: InputBorder.none),
+  //       onChanged: (value) {
+  //         if (value.isNotEmpty) {
+  //           if (index < 3) {
+  //             FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+  //           } else {
+  //             FocusScope.of(context).unfocus();
+  //           }
+  //         } else if (index > 0) {
+  //           FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
+
   Widget buildOtpTextField(int index, double width) {
     return Container(
       height: width * 0.14,
       width: width * 0.14,
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(12),
@@ -131,19 +155,31 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
       child: TextField(
         controller: _controllers[index],
         focusNode: _focusNodes[index],
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w600,
           fontSize: 24,
         ),
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
-        maxLength: 1,
         cursorHeight: 25,
-        decoration: InputDecoration(counterText: "", border: InputBorder.none),
+        decoration: const InputDecoration(
+          counterText: "",
+          border: InputBorder.none,
+        ),
         onChanged: (value) {
-          if (value.isNotEmpty) {
-            if (index < 3) {
+          if (value.length > 1) {
+            final digits = value.replaceAll(RegExp(r'[^0-9]'), '').split('');
+            for (int i = 0; i < digits.length && i < _controllers.length; i++) {
+              _controllers[i].text = digits[i];
+            }
+            if (digits.length >= _controllers.length) {
+              FocusScope.of(context).unfocus();
+            } else {
+              FocusScope.of(context).requestFocus(_focusNodes[digits.length]);
+            }
+          } else if (value.isNotEmpty) {
+            if (index < _focusNodes.length - 1) {
               FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
             } else {
               FocusScope.of(context).unfocus();
