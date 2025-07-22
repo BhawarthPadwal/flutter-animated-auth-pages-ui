@@ -406,7 +406,8 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateMixin {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _slideController;
   late AnimationController _fadeController;
@@ -433,18 +434,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
     // Slide animation for UI elements
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     // Fade animation for last text
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     // Two wave animations with different phase shifts
-    _animation = Tween<double>(begin: 0.0, end: 2 * math.pi).animate(_controller);
-    _animation2 = Tween<double>(begin: 0.5, end: 2 * math.pi + 0.5).animate(_controller);
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 2 * math.pi,
+    ).animate(_controller);
+    _animation2 = Tween<double>(
+      begin: 0.5,
+      end: 2 * math.pi + 0.5,
+    ).animate(_controller);
 
     _fadeAnimation = CurvedAnimation(
       parent: _fadeController,
@@ -452,22 +459,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0.0, -0.2),
+      begin: const Offset(0.0, -0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation2 = Tween<Offset>(
-      begin: const Offset(-1.0, 0.0),
+      begin: const Offset(-0.1, 0.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation3 = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
+      begin: const Offset(0.1, 0.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation4 = Tween<Offset>(
-      begin: const Offset(0.0, 2.0),
+      begin: const Offset(0.0, 0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
   }
@@ -509,7 +516,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                             height: size.height * 0.37,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [Colors.blue.shade100, Colors.blue.shade300],
+                                colors: [
+                                  Colors.blue.shade100,
+                                  Colors.blue.shade300,
+                                ],
                               ),
                             ),
                           ),
@@ -526,7 +536,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                             height: size.height * 0.35,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [Colors.blue.shade300, Colors.blue.shade100],
+                                colors: [
+                                  Colors.blue.shade300,
+                                  Colors.blue.shade100,
+                                ],
                               ),
                             ),
                             child: Column(
@@ -576,9 +589,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
               SlideTransition(
                 position: _slideAnimation2,
                 child: GestureDetector(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const OtpScreen())),
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (
+                            context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                          ) => OtpScreen(),
+                      transitionsBuilder:
+                          (
+                            BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child,
+                          ) {
+                            const begin = Offset(0.0, 1.0); // bottom of screen
+                            const end = Offset.zero;
+                            final tween = Tween(
+                              begin: begin,
+                              end: end,
+                            ).chain(CurveTween(curve: Curves.ease));
+
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                      transitionDuration: Duration(milliseconds: 1500),
+                    ),
+                  ),
+
                   child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 40,
+                    ),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(1000),
@@ -591,7 +637,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                     child: const Center(
                       child: Text(
                         'Create Account',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -602,9 +652,41 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
               SlideTransition(
                 position: _slideAnimation3,
                 child: GestureDetector(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginScreen())),
+                  onTap: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (
+                            context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                          ) => LoginScreen(),
+                      transitionsBuilder:
+                          (
+                            BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child,
+                          ) {
+                            const begin = Offset(0.0, 1.0);
+                            const end = Offset.zero;
+                            final tween = Tween(
+                              begin: begin,
+                              end: end,
+                            ).chain(CurveTween(curve: Curves.ease));
+
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                      transitionDuration: Duration(milliseconds: 1500),
+                    ),
+                  ),
                   child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 40,
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Colors.blue.shade300, Colors.blue.shade100],
@@ -622,14 +704,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: Center(
                         child: ShaderMask(
-                          shaderCallback: (bounds) => LinearGradient(
-                            colors: [Colors.blue.shade300, Colors.blue.shade100],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+                          shaderCallback: (bounds) =>
+                              LinearGradient(
+                                colors: [
+                                  Colors.blue.shade300,
+                                  Colors.blue.shade100,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ).createShader(
+                                Rect.fromLTWH(
+                                  0,
+                                  0,
+                                  bounds.width,
+                                  bounds.height,
+                                ),
+                              ),
                           child: const Text(
                             'Login',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

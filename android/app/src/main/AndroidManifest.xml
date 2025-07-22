@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="flutter_custom_animated_auth_ui"
+        android:label="SignUP"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

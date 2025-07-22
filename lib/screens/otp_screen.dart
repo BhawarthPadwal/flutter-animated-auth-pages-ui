@@ -44,13 +44,13 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
     // Slide animation for UI elements
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     // Fade animation for last text
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     _animation = Tween<double>(
@@ -64,7 +64,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0.0, -0.2),
+      begin: const Offset(0.0, -0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
@@ -79,7 +79,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
     // ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation4 = Tween<Offset>(
-      begin: const Offset(0.0, 2.0),
+      begin: const Offset(0.0, 1.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
   }

@@ -39,13 +39,13 @@ class _LoginScreenState extends State<LoginScreen>
     // Slide animation for UI elements
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     // Fade animation for last text
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
 
     // Two wave animations with different phase shifts
@@ -64,22 +64,22 @@ class _LoginScreenState extends State<LoginScreen>
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0.0, -0.2),
+      begin: const Offset(0.0, -0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation2 = Tween<Offset>(
-      begin: const Offset(-1.0, 0.0),
+      begin: const Offset(-0.1, 0.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation3 = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
+      begin: const Offset(0.1, 0.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
     _slideAnimation4 = Tween<Offset>(
-      begin: const Offset(0.0, 2.0),
+      begin: const Offset(0.0, 0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
   }
@@ -104,68 +104,71 @@ class _LoginScreenState extends State<LoginScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Stack(
-                children: [
-                  AnimatedBuilder(
-                    animation: _animation2,
-                    builder: (context, child) {
-                      return ClipPath(
-                        clipper: WaveClipper(_animation2.value),
-                        child: Container(
-                          width: width,
-                          height: height * 0.37,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.blue.shade100,
-                                Colors.blue.shade300,
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  AnimatedBuilder(
-                    animation: _animation,
-                    builder: (context, child) {
-                      return ClipPath(
-                        clipper: WaveClipper(_animation.value),
-                        child: Container(
-                          width: width,
-                          height: height * 0.35,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.blue.shade300,
-                                Colors.blue.shade100,
-                              ],
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 60),
-                                width: 100,
-                                height: 100,
-                                //color: Colors.grey,
-                                child: CustomPaint(painter: LogoPainter()),
+              SlideTransition(
+                position: _slideAnimation,
+                child: Stack(
+                  children: [
+                    AnimatedBuilder(
+                      animation: _animation2,
+                      builder: (context, child) {
+                        return ClipPath(
+                          clipper: WaveClipper(_animation2.value),
+                          child: Container(
+                            width: width,
+                            height: height * 0.37,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade100,
+                                  Colors.blue.shade300,
+                                ],
                               ),
-                              Text(
-                                'MOFINOW',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    AnimatedBuilder(
+                      animation: _animation,
+                      builder: (context, child) {
+                        return ClipPath(
+                          clipper: WaveClipper(_animation.value),
+                          child: Container(
+                            width: width,
+                            height: height * 0.35,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade300,
+                                  Colors.blue.shade100,
+                                ],
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(top: 60),
+                                  width: 100,
+                                  height: 100,
+                                  //color: Colors.grey,
+                                  child: CustomPaint(painter: LogoPainter()),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'MOFINOW',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               SlideTransition(
                 position: _slideAnimation,
@@ -275,8 +278,8 @@ class _LoginScreenState extends State<LoginScreen>
                                 width: diameter * 0.25, // Inner diameter
                                 height: diameter * 0.25,
                                 decoration: BoxDecoration(
-                                  color:
-                                      Colors.white, // Color of the hollow center
+                                  color: Colors
+                                      .white, // Color of the hollow center
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -288,7 +291,10 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                     const Spacer(),
-                    SlideTransition(position: _slideAnimation3, child: Text('Forgot password?')),
+                    SlideTransition(
+                      position: _slideAnimation3,
+                      child: Text('Forgot password?'),
+                    ),
                   ],
                 ),
               ),
@@ -324,7 +330,12 @@ class _LoginScreenState extends State<LoginScreen>
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ).createShader(
-                                Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                                Rect.fromLTWH(
+                                  0,
+                                  0,
+                                  bounds.width,
+                                  bounds.height,
+                                ),
                               ),
                           child: Text(
                             'Login',
@@ -351,7 +362,10 @@ class _LoginScreenState extends State<LoginScreen>
                       shaderCallback: (bounds) =>
                           LinearGradient(
                             ////colors: [Color(0xff5932A9), Color(0xff3892D3)],
-                            colors: [Colors.blue.shade300, Colors.blue.shade100],
+                            colors: [
+                              Colors.blue.shade300,
+                              Colors.blue.shade100,
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ).createShader(
@@ -401,8 +415,8 @@ class _LoginScreenState extends State<LoginScreen>
                           'OR',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color:
-                                Colors.white, // Must be white to see the gradient
+                            color: Colors
+                                .white, // Must be white to see the gradient
                           ),
                         ),
                       ),
