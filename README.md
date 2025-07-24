@@ -1,6 +1,21 @@
-# flutter_custom_animated_auth_ui
+# Flutter Animated Auth UI
 
-A new Flutter project.
+A Flutter project demonstrating a custom animated authentication UI. This project includes screens for welcome, login, and OTP verification, with a focus on smooth animations and a clean user interface.
+
+## Features
+
+- **Welcome Screen:** An engaging welcome screen that introduces the app.
+- **Login Screen:** A beautifully designed login screen with custom animations.
+- **OTP Verification Screen:** A screen for users to enter a one-time password for verification.
+- **Custom Animations:** Smooth and appealing animations to enhance the user experience.
+- **Clean UI:** A modern and intuitive user interface.
+- **Custom Painter:** Utilizes `CustomPainter` for creating custom shapes and animations.
+
+## Screenshots
+
+| Welcome Screen | Login Screen | OTP Screen |
+| :---: | :---: | :---: |
+| **Image of Welcome Screen** | **Image of Login Screen** | **Image of OTP Screen** |
 
 ## Getting Started
 
