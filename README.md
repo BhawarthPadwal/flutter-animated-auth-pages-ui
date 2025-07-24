@@ -14,18 +14,5 @@ A Flutter project demonstrating a custom animated authentication UI. This projec
 ## Screenshots
 
 | Welcome Screen | Login Screen | OTP Screen |
-| :---: | :---: | :---: |
-| **Image of Welcome Screen** | **Image of Login Screen** | **Image of OTP Screen** |
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+|:--------------:|:------------:|:----------:|
+| <img src="https://github.com/user-attachments/assets/eca9c710-816b-48be-a007-09c88ec786db" width="200"/> | <img src="https://github.com/user-attachments/assets/a6551b68-b4f3-488d-92af-44120b20e25d" width="200"/> | <img src="https://github.com/user-attachments/assets/fd8cc305-bd11-4fb5-bfd0-c8d9f0781645" width="200"/> |
